@@ -1,11 +1,130 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- SEO: basic metadata for search engines -->
+  <meta name="description" content="Esta aplicación web, desarrollada con HTML, CSS y JavaScript, permite gestionar productos mediante formularios interactivos para agregar, eliminar, actualizar precios y ver el inventario.">
+  <meta name="keywords" content="inventario, gestión de productos, JavaScript, HTML, CSS, developer-dylan, sistema CRUD, tienda, formulario interactivo">
+  <meta name="sitedomain" content="https://github.com/developer-dylan/App-WEB-de-Inventario.git">
+  <meta name="organization" content="developer-dylan">
+  <meta name="author" content="Dylan Andrés Marín">
+  <meta name="designer" content="Dylan Andrés Marín">
+  <meta name="copyright" content="© 2025 developer-dylan. All rights reserved">
+
+  <title>Gestión de Inventario</title>
+
+  <!-- Link to external CSS -->
+  <link rel="stylesheet" href="./src/css/style.css" />
 </head>
+
 <body>
-  
+
+  <header>
+    <h1 class="title">Administrador pacientes</h1>
+  </header>
+
+  <main class="container row bg-white rounded">
+    <section class="col-12 col-md-6">
+      <div class="p-3">
+        <h4>Datos del paciente</h4>
+
+        <form id="form" class="row g-3 needs-validation p-2" novalidate>
+          <div class="mb-3">
+            <label for="name_pet" class="form-label">Nombre de la mascota</label>
+            <input type="text" class="form-control" id="name_pet" placeholder="Escribe el nombre de tu mascota"
+              required />
+            <div class="invalid-feedback">Este campo es obligatorio</div>
+          </div>
+
+          <div class="mb-3">
+            <label for="name_pet" class="form-label">Nombre del propietario</label>
+            <input type="text" class="form-control" id="name_person" placeholder="Escribe tu nombre" required />
+            <div class="invalid-feedback">Este campo es obligatorio</div>
+          </div>
+
+          <div class="mb-3">
+            <label for="name_pet" class="form-label">Telefono del propietario</label>
+            <input type="tel" class="form-control" id="phone_person" placeholder="Escribe tu numero telefonico"
+              maxlength="10" required />
+            <div class="invalid-feedback">Este campo es obligatorio</div>
+          </div>
+
+          <div class="mb-3">
+            <label for="name_pet" class="form-label">Fecha de la cita</label>
+            <input type="date" class="form-control" id="date_cite" placeholder="Escribe el nombre de tu mascota"
+              required />
+            <div class="invalid-feedback">Este campo es obligatorio</div>
+          </div>
+
+          <div class="mb-3">
+            <label for="name_pet" class="form-label">Hora de la cita</label>
+            <input type="time" class="form-control" id="time_cite" placeholder="Escribe el nombre de tu mascota"
+              required />
+            <div class="invalid-feedback">Este campo es obligatorio</div>
+          </div>
+
+          <div class="mb-3">
+            <label for="description" class="form-label">Sintomas</label>
+            <textarea class="form-control" id="description" rows="3" required></textarea>
+          </div>
+
+          <button class="btn btn-success" type="submit" id="btnSave">
+            Guardar
+          </button>
+        </form>
+      </div>
+    </section>
+    <section class="col-12 col-md-6 p-3">
+      <h4>Administrar citas</h4>
+      <div class="container-cites d-flex flex-wrap gap-3">
+        <article class="card card_cite">
+          <div class="card-body">
+            <h5 class="card-title fs-3 fw-bold">Maria lupe ortiz</h5>
+            <p class="card-text">
+
+            <div class="d-flex gap-2">
+              <span class="fw-bold">Propietario:</span>
+              <span>javier combita</span>
+            </div>
+
+            <div class="d-flex gap-2">
+              <span class="fw-bold">Telefono:</span>
+              <span>3136954017</span>
+            </div>
+
+            <div class="d-flex gap-2">
+              <span class="fw-bold">Fecha:</span>
+              <span>hoy</span>
+            </div>
+
+            <div class="d-flex gap-2">
+              <span class="fw-bold">Hora:</span>
+              <span>13:14</span>
+            </div>
+
+            <div class="d-flex gap-2">
+              <span class="fw-bold">Sintomas:</span>
+              <span>Covid 19</span>
+            </div>
+
+            <div class="d-flex mt-3 gap-2">
+              <button class="btn btn-primary edit">Editar</button>
+              <button class="btn btn-danger delete">Eliminar</button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer with credits -->
+  <footer>
+    <p>© 2025 developer-dylan. All rights reserved.</p>
+  </footer>
+
+  <!-- JavaScript functionality -->
+  <script src="./src/js/main.js"></script>
 </body>
 </html>
