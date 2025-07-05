@@ -1,52 +1,63 @@
-import '../scss/styles.scss'
-// Import all of Bootstrap's JS
-import * as bootstrap from 'bootstrap'
-import { alertError, alertSuccess } from './alerts'
+import { createProduct, deleteProduct, getProducts, updateProduct } from './api.js'
+import { renderProductCard } from './ui.js'
 
-const endpointAppointments = "http://localhost:3000/appointment"
+const form = document.getElementById('productForm')
+const productsContainer = document.getElementById('productList')
 
-const $namePet = document.getElementById('name_pet')
-const $namePerson = document.getElementById('name_person')
-const $phonePerson = document.getElementById('phone_person')
-const $dateCite = document.getElementById('date_cite')
-const $timeCite = document.getElementById('time_cite')
-const $description = document.getElementById('description')
-const $form = document.getElementById('form')
+let editing = false
+let editId = null
 
-$form.addEventListener("submit", function (event) {
-    event.preventDefault()
-    createAppointment()
+// Capitalize first letter
+const formatText = (text) => {
+  return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase()
+}
+
+// Render all products
+const renderProducts = async () => {
+  const products = await getProducts()
+  productsContainer.innerHTML = ''
+  products.forEach(product => {
+    const card = renderProductCard(product, loadForm, removeProduct)
+    productsContainer.appendChild(card)
+  })
+}
+
+// Load data into the form
+const loadForm = (product) => {
+  form['name'].value = product.name
+  form['price'].value = product.price
+  form['category'].value = product.category
+  editing = true
+  editId = product.id
+}
+
+// Delete a product
+const removeProduct = async (id) => {
+  await deleteProduct(id)
+  renderProducts()
+}
+
+// Handle form submit
+form.addEventListener('submit', async (e) => {
+  e.preventDefault()
+
+  const newProduct = {
+    name: formatText(form['name'].value.trim()),
+    price: form['price'].value,
+    category: formatText(form['category'].value.trim())
+  }
+
+  if (!editing) {
+    await createProduct(newProduct)
+  } else {
+    await updateProduct(editId, newProduct)
+    editing = false
+    editId = null
+  }
+
+  form.reset()
+  renderProducts()
 })
 
-//Create a new appointment
-async function createAppointment() {
-
-    const newAppointment = {
-        namePet: $namePet.value,
-        nameOwner: $namePerson.value,
-        phone: $phonePerson.value,
-        date: $dateCite.value,
-        time: $timeCite.value,
-        description: $description.value
-    }
-
-    try {
-        let response = await fetch(endpointAppointments, {
-            method: "POST",
-            headers: {
-                "content-type": "application/json"
-            },
-            body: JSON.stringify(newAppointment)
-        })
-
-        if (!response.ok) {
-            alertError("Lo sentimos, vuelve a intentarlo más tarde.")
-            throw new Error(response.statusText)
-        } else {
-            alertSuccess("Tu cita ha sido agendada.")
-        }
-    } catch (error) {
-        console.log(error.message)
-
-    }
-}
+// Initial render
+window.addEventListener('DOMContentLoaded', renderProducts)

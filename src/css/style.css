@@ -1,39 +1,224 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
-@import "bootstrap/scss/bootstrap";
-
+/* Base styles */
 * {
-  padding: 0;
-  margin: 0;
   box-sizing: border-box;
-  font-family: "Roboto", sans-serif;
 }
 
 body {
-  min-height: 100vh;
-  background: rgb(2, 0, 36);
-  background: linear-gradient(
-    90deg,
-    rgba(2, 0, 36, 1) 0%,
-    rgba(9, 9, 121, 1) 35%,
-    rgba(0, 212, 255, 1) 100%
-  );
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f2f4f8;
+  color: #333;
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
+  min-height: 100vh;
 }
 
-.title {
-  font-size: 3rem;
-  text-transform: uppercase;
-  color: #fff;
+/* Header section */
+header {
+  background-color: #003d59;
+  color: white;
+  padding: 20px;
+  text-align: center;
 }
 
-.card {
-  width: 14rem;
+/* Main layout */
+main {
+  flex: 1;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 20px;
 }
 
-.container-cites {
-  overflow-y: auto;
+/* Titles for sections */
+h2 {
+  font-size: 22px;
+  margin-bottom: 15px;
+  text-align: center;
 }
 
+/* Form container styles */
+form {
+  background-color: white;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* soft shadow */
+  margin-bottom: 40px;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Label above each input */
+form label {
+  font-weight: 600;
+  display: block;
+  margin-bottom: 6px;
+}
+
+/* Inputs style */
+form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+/* Submit button */
+form button {
+  width: 100%;
+  padding: 12px;
+  background-color: #28a745;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-weight: bold;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+/* Button hover effect */
+form button:hover {
+  background-color: #218838;
+}
+
+/* Section for product list */
+.product-list {
+  margin-top: 60px;
+  width: 100%;
+}
+
+/* Grid container for product cards */
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  padding: 0 10px;
+}
+
+/* Individual product card */
+.product-card {
+  background-color: white;
+  padding: 20px 25px;
+  border-left: 6px solid #007bff;
+  border-radius: 10px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.1);
+}
+
+/* Text inside the product card */
+.products-container {
+  display: grid;
+  grid-template-columns: 1fr; /* One column by default */
+  gap: 20px;
+  padding: 10px;
+  justify-content: center;
+}
+
+.product-card {
+  background-color: white;
+  padding: 20px;
+  border-left: 5px solid #007bff; /* blue line at left */
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* soft shadow */
+  transition: transform 0.2s ease;
+  max-width: 400px;
+  margin: 0 auto; /* center the card */
+}
+
+/* Hover effect */
+.product-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Text inside card */
+.product-card p {
+  margin: 6px 0;
+  font-size: 14px;
+}
+
+/* Buttons inside card */
+.card-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.card-buttons button {
+  flex: 1;
+  padding: 10px;
+  font-size: 14px;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+}
+
+.card-buttons .edit {
+  background-color: #007bff;
+}
+
+.card-buttons .edit:hover {
+  background-color: #0056b3;
+}
+
+.card-buttons .delete {
+  background-color: #dc3545;
+}
+
+.card-buttons .delete:hover {
+  background-color: #a71d2a;
+}
+
+/* Footer styles */
+footer {
+  background-color: #003d59;
+  color: white;
+  text-align: center;
+  padding: 15px;
+}
+
+/* Mobile responsive styles */
+@media (max-width: 576px) {
+  form {
+    padding: 20px;
+  }
+
+  .product-card {
+    padding: 15px;
+  }
+
+  .card-buttons {
+    flex-direction: column;
+  }
+
+  .card-buttons button {
+    width: 100%;
+  }
+}
+
+/* Tablet responsive styles */
+@media (min-width: 577px) and (max-width: 991px) {
+  .card-container {
+    justify-content: center;
+  }
+
+  .product-card {
+    width: 80%;
+  }
+}
+
+/* Desktop responsive styles */
+@media (min-width: 992px) {
+  .card-container {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+    padding: 0 10px;
+  }
+}

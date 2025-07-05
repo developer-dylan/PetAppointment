@@ -1,130 +1,63 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- SEO: basic metadata for search engines -->
-  <meta name="description" content="Esta aplicación web, desarrollada con HTML, CSS y JavaScript, permite gestionar productos mediante formularios interactivos para agregar, eliminar, actualizar precios y ver el inventario.">
-  <meta name="keywords" content="inventario, gestión de productos, JavaScript, HTML, CSS, developer-dylan, sistema CRUD, tienda, formulario interactivo">
-  <meta name="sitedomain" content="https://github.com/developer-dylan/App-WEB-de-Inventario.git">
+  <meta name="description" content="Sistema web interactivo para gestionar productos con formularios modernos. Permite agregar, editar, eliminar y visualizar inventario de manera eficiente con HTML, CSS y JavaScript.">
+  <meta name="keywords" content="gestión de inventario, CRUD productos, HTML CSS JavaScript, developer-dylan, sistema web, tienda digital, aplicación de productos, interfaz moderna, formulario interactivo">
+  <meta name="sitedomain" content="https://github.com/developer-dylan/inventory-crud-system.git">
   <meta name="organization" content="developer-dylan">
   <meta name="author" content="Dylan Andrés Marín">
   <meta name="designer" content="Dylan Andrés Marín">
   <meta name="copyright" content="© 2025 developer-dylan. All rights reserved">
 
-  <title>Gestión de Inventario</title>
-
-  <!-- Link to external CSS -->
+  <title>Gestor de Productos</title>
   <link rel="stylesheet" href="./src/css/style.css" />
+  <link rel="shortcut icon" href="./public/img/logo.webp" type="image/x-icon">
 </head>
 
 <body>
-
   <header>
-    <h1 class="title">Administrador pacientes</h1>
+    <h1>Administrador de Productos</h1>
   </header>
 
-  <main class="container row bg-white rounded">
-    <section class="col-12 col-md-6">
-      <div class="p-3">
-        <h4>Datos del paciente</h4>
+  <main>
+    <section class="form-container">
+      <h2>Agregar producto</h2>
+      <form id="productForm">
+        <label for="name">Nombre del producto</label>
+        <!-- Input for product name -->
+        <input type="text" id="name" name="name" placeholder="Ej: Laptop" required />
 
-        <form id="form" class="row g-3 needs-validation p-2" novalidate>
-          <div class="mb-3">
-            <label for="name_pet" class="form-label">Nombre de la mascota</label>
-            <input type="text" class="form-control" id="name_pet" placeholder="Escribe el nombre de tu mascota"
-              required />
-            <div class="invalid-feedback">Este campo es obligatorio</div>
-          </div>
+        <label for="price">Precio</label>
+        <!-- Input for product price -->
+        <input type="number" id="price" name="price" placeholder="Ej: 1000" min="0" required />
 
-          <div class="mb-3">
-            <label for="name_pet" class="form-label">Nombre del propietario</label>
-            <input type="text" class="form-control" id="name_person" placeholder="Escribe tu nombre" required />
-            <div class="invalid-feedback">Este campo es obligatorio</div>
-          </div>
+        <label for="category">Categoría</label>
+        <!-- Input for product category -->
+        <input type="text" id="category" name="category" placeholder="Ej: Electrónica" required />
 
-          <div class="mb-3">
-            <label for="name_pet" class="form-label">Telefono del propietario</label>
-            <input type="tel" class="form-control" id="phone_person" placeholder="Escribe tu numero telefonico"
-              maxlength="10" required />
-            <div class="invalid-feedback">Este campo es obligatorio</div>
-          </div>
-
-          <div class="mb-3">
-            <label for="name_pet" class="form-label">Fecha de la cita</label>
-            <input type="date" class="form-control" id="date_cite" placeholder="Escribe el nombre de tu mascota"
-              required />
-            <div class="invalid-feedback">Este campo es obligatorio</div>
-          </div>
-
-          <div class="mb-3">
-            <label for="name_pet" class="form-label">Hora de la cita</label>
-            <input type="time" class="form-control" id="time_cite" placeholder="Escribe el nombre de tu mascota"
-              required />
-            <div class="invalid-feedback">Este campo es obligatorio</div>
-          </div>
-
-          <div class="mb-3">
-            <label for="description" class="form-label">Sintomas</label>
-            <textarea class="form-control" id="description" rows="3" required></textarea>
-          </div>
-
-          <button class="btn btn-success" type="submit" id="btnSave">
-            Guardar
-          </button>
-        </form>
-      </div>
+        <!-- Submit button -->
+        <button type="submit">Agregar producto</button>
+      </form>
     </section>
-    <section class="col-12 col-md-6 p-3">
-      <h4>Administrar citas</h4>
-      <div class="container-cites d-flex flex-wrap gap-3">
-        <article class="card card_cite">
-          <div class="card-body">
-            <h5 class="card-title fs-3 fw-bold">Maria lupe ortiz</h5>
-            <p class="card-text">
 
-            <div class="d-flex gap-2">
-              <span class="fw-bold">Propietario:</span>
-              <span>javier combita</span>
-            </div>
-
-            <div class="d-flex gap-2">
-              <span class="fw-bold">Telefono:</span>
-              <span>3136954017</span>
-            </div>
-
-            <div class="d-flex gap-2">
-              <span class="fw-bold">Fecha:</span>
-              <span>hoy</span>
-            </div>
-
-            <div class="d-flex gap-2">
-              <span class="fw-bold">Hora:</span>
-              <span>13:14</span>
-            </div>
-
-            <div class="d-flex gap-2">
-              <span class="fw-bold">Sintomas:</span>
-              <span>Covid 19</span>
-            </div>
-
-            <div class="d-flex mt-3 gap-2">
-              <button class="btn btn-primary edit">Editar</button>
-              <button class="btn btn-danger delete">Eliminar</button>
-            </div>
-          </div>
-        </article>
-      </div>
+    <section class="product-list">
+      <h2>Lista de productos</h2>
+      <!-- Container for product cards -->
+      <div class="card-container" id="productList"></div>
     </section>
   </main>
 
-  <!-- Footer with credits -->
   <footer>
-    <p>© 2025 developer-dylan. All rights reserved.</p>
+    <p>© 2025 developer-dylan. Todos los derechos reservados.</p>
   </footer>
 
-  <!-- JavaScript functionality -->
-  <script src="./src/js/main.js"></script>
+  <!-- Main JavaScript file -->
+  <script type="module" src="./src/js/main.js"></script>
 </body>
+
 </html>
