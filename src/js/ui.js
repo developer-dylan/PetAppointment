@@ -1,9 +1,10 @@
-// Capitalize first letter
+// Format text: capitalize first letter, lowercase rest
 const formatText = (text) => {
+  if (!text) return ''
   return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase()
 }
 
-// Format price with currency
+// Format price as Colombian Peso currency
 const formatPrice = (price) => {
   return new Intl.NumberFormat('es-CO', {
     style: 'currency',
@@ -12,15 +13,15 @@ const formatPrice = (price) => {
   }).format(price)
 }
 
-// Create a product card
+// Create product card DOM element
 export const renderProductCard = (product, onEdit, onDelete) => {
   const div = document.createElement('div')
   div.classList.add('product-card')
 
   div.innerHTML = `
-    <p><strong>Nombre:</strong> ${formatText(product.name)}</p>
+    <p><strong>Producto:</strong> ${formatText(product.name)}</p>
     <p><strong>Precio:</strong> ${formatPrice(product.price)}</p>
-    <p><strong>Categoría:</strong> ${formatText(product.category)}</p>
+    <p><strong>Categoria:</strong> ${formatText(product.category)}</p>
     <div class="card-buttons">
       <button class="edit">Editar</button>
       <button class="delete">Eliminar</button>

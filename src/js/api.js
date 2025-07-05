@@ -1,6 +1,6 @@
 export const apiServer = 'http://localhost:3000/products'
 
-// Get all products
+// Fetch all products
 export const getProducts = async () => {
   try {
     const res = await fetch(apiServer)
@@ -8,56 +8,60 @@ export const getProducts = async () => {
     return await res.json()
   } catch (error) {
     console.error('Error fetching products:', error)
-    return []
+    throw new Error('Failed to load products.')
   }
 }
 
-// Create a new product with unique name
+// Create a new product ensuring unique name
 export const createProduct = async (product) => {
-  try {
-    const existing = await getProducts()
-    const nameExists = existing.some(p => p.name.toLowerCase() === product.name.toLowerCase())
-    if (nameExists) {
-      alert('Ya existe un producto con ese nombre.')
-      return
-    }
+  const existing = await getProducts()
+  const nameExists = existing.some(p => p.name.toLowerCase() === product.name.toLowerCase())
+  if (nameExists) {
+    throw new Error('Product with this name already exists.')
+  }
 
+  try {
     const res = await fetch(apiServer, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(product)
     })
-    return await res.json()
+    if (!res.ok) throw new Error('Failed to add product.')
+    const newProduct = await res.json()
+    return newProduct
   } catch (error) {
     console.error('Error creating product:', error)
+    throw new Error('Failed to add product.')
   }
 }
 
-// Update an existing product
+// Update existing product by id
 export const updateProduct = async (id, updatedProduct) => {
   try {
     const res = await fetch(`${apiServer}/${id}`, {
       method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(updatedProduct)
     })
-    return await res.json()
+    if (!res.ok) throw new Error('Failed to update product.')
+    const updated = await res.json()
+    return updated
   } catch (error) {
     console.error('Error updating product:', error)
+    throw new Error('Failed to update product.')
   }
 }
 
-// Delete a product
+// Delete product by id
 export const deleteProduct = async (id) => {
   try {
-    await fetch(`${apiServer}/${id}`, {
+    const res = await fetch(`${apiServer}/${id}`, {
       method: 'DELETE'
     })
+    if (!res.ok) throw new Error('Failed to delete product.')
+    return true
   } catch (error) {
     console.error('Error deleting product:', error)
+    throw new Error('Failed to delete product.')
   }
 }

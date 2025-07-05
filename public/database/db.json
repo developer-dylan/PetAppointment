@@ -1,10 +1,10 @@
 {
   "products": [
     {
-      "id": "e076",
       "name": "Dylan",
       "price": "1000",
-      "category": "Telefono"
+      "category": "Telefono",
+      "id": "e076"
     }
   ]
 }

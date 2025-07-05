@@ -1,5 +1,6 @@
 import { createProduct, deleteProduct, getProducts, updateProduct } from './api.js'
 import { renderProductCard } from './ui.js'
+import { showSuccessAlert, showErrorAlert, showWarningAlert, showConfirmAlert } from './alerts.js'
 
 const form = document.getElementById('productForm')
 const productsContainer = document.getElementById('productList')
@@ -7,22 +8,26 @@ const productsContainer = document.getElementById('productList')
 let editing = false
 let editId = null
 
-// Capitalize first letter
+// Format text: capitalize first letter, lowercase rest
 const formatText = (text) => {
   return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase()
 }
 
-// Render all products
+// Render all products in container
 const renderProducts = async () => {
-  const products = await getProducts()
-  productsContainer.innerHTML = ''
-  products.forEach(product => {
-    const card = renderProductCard(product, loadForm, removeProduct)
-    productsContainer.appendChild(card)
-  })
+  try {
+    const products = await getProducts()
+    productsContainer.innerHTML = ''
+    products.forEach(product => {
+      const card = renderProductCard(product, loadForm, removeProduct)
+      productsContainer.appendChild(card)
+    })
+  } catch (error) {
+    showErrorAlert(error.message)
+  }
 }
 
-// Load data into the form
+// Load product data into form for editing
 const loadForm = (product) => {
   form['name'].value = product.name
   form['price'].value = product.price
@@ -31,13 +36,21 @@ const loadForm = (product) => {
   editId = product.id
 }
 
-// Delete a product
+// Remove product after confirmation
 const removeProduct = async (id) => {
-  await deleteProduct(id)
-  renderProducts()
+  try {
+    const confirmed = await showConfirmAlert('Esta acción no se puede deshacer.')
+    if (!confirmed) return
+
+    await deleteProduct(id)
+    showSuccessAlert('Product deleted successfully.')
+    renderProducts()
+  } catch (error) {
+    showErrorAlert(error.message)
+  }
 }
 
-// Handle form submit
+// Handle form submit to create or update product
 form.addEventListener('submit', async (e) => {
   e.preventDefault()
 
@@ -47,17 +60,26 @@ form.addEventListener('submit', async (e) => {
     category: formatText(form['category'].value.trim())
   }
 
-  if (!editing) {
-    await createProduct(newProduct)
-  } else {
-    await updateProduct(editId, newProduct)
-    editing = false
-    editId = null
+  try {
+    if (!editing) {
+      await createProduct(newProduct)
+      showSuccessAlert('Producto agregado exitosamente.')
+    } else {
+      await updateProduct(editId, newProduct)
+      showSuccessAlert('Producto actualizado exitosamente.')
+      editing = false
+      editId = null
+    }
+    form.reset()
+    renderProducts()
+  } catch (error) {
+    if (error.message.includes('exists')) {
+      showWarningAlert(error.message)
+    } else {
+      showErrorAlert(error.message)
+    }
   }
-
-  form.reset()
-  renderProducts()
 })
 
-// Initial render
+// Initial render on page load
 window.addEventListener('DOMContentLoaded', renderProducts)
