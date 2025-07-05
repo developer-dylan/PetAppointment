@@ -5,6 +5,18 @@
       "price": "1000",
       "category": "Telefono",
       "id": "e076"
+    },
+    {
+      "id": "088b",
+      "name": "Iphone",
+      "price": "1",
+      "category": "Telefono"
+    },
+    {
+      "id": "9cef",
+      "name": "Hola",
+      "price": "1",
+      "category": "1"
     }
   ]
 }

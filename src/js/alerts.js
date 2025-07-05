@@ -1,7 +1,7 @@
 export const showSuccessAlert = (message) => {
   Swal.fire({
     icon: 'success',
-    title: 'Success',
+    title: 'Agregado',
     text: message,
     timer: 2000,
     showConfirmButton: false,
@@ -30,7 +30,7 @@ export const showConfirmAlert = (message) => {
     text: message,
     icon: 'question',
     showCancelButton: true,
-    confirmButtonText: 'Yes',
-    cancelButtonText: 'Cancel',
+    confirmButtonText: 'Si',
+    cancelButtonText: 'Cancelar',
   }).then(result => result.isConfirmed)
 }
